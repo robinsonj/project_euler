@@ -56,8 +56,8 @@ fn largest_prime_factor(i: u64) -> u64 {
 fn palindrome_product(i: u64, i_max: u64, j: u64, j_max: u64) -> u64 {
   let mut largest: u64 = 0;
 
-  for a in i..i_max {
-    for b in j..j_max {
+  for a in (i..i_max).rev() {
+    for b in (j..j_max).rev() {
       if is_palindrome(a * b) && a * b > largest {
         largest = a * b;
       }
@@ -88,6 +88,6 @@ mod tests {
 
   #[test]
   fn problem_4() {
-    assert_eq!(palindrome_product(100, 1000, 100, 1000), 906609);
+    assert_eq!(palindrome_product(100, 1_000, 100, 1_000), 906_609);
   }
 }
