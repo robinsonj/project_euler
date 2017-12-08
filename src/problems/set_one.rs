@@ -1,6 +1,7 @@
 /// Provide solutions to Euler problems 1-25.
 
 use math::primes;
+use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
 fn multiples_sum(max: i64) -> i64 {
@@ -50,6 +51,22 @@ fn largest_prime_factor(i: u64) -> u64 {
   return factor
 }
 
+/// Find the largest palindrome product of two numbers in range.
+#[allow(dead_code)]
+fn palindrome_product(i: u64, i_max: u64, j: u64, j_max: u64) -> u64 {
+  let mut largest: u64 = 0;
+
+  for a in i..i_max {
+    for b in j..j_max {
+      if is_palindrome(a * b) && a * b > largest {
+        largest = a * b;
+      }
+    }
+  }
+
+  return largest
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -67,5 +84,10 @@ mod tests {
   #[test]
   fn problem_3() {
     assert_eq!(largest_prime_factor(600_851_475_143), 6_857)
+  }
+
+  #[test]
+  fn problem_4() {
+    assert_eq!(palindrome_product(100, 1000, 100, 1000), 906609);
   }
 }
