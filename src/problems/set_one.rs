@@ -67,6 +67,31 @@ fn palindrome_product(i: u64, i_max: u64, j: u64, j_max: u64) -> u64 {
   return largest
 }
 
+/// Find the smallest multiple of all ints 1..i.
+#[allow(dead_code)]
+fn smallest_multiple(i: u64) -> u64 {
+  let mut m = i;
+
+  loop {
+    let mut found: bool = true;
+
+    for d in (11..i).rev() {
+      if m % d != 0 {
+        found = false;
+        break;
+      }
+    }
+
+    if found {
+      break;
+    }
+
+    m += 1;
+  }
+
+  return m
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -89,5 +114,10 @@ mod tests {
   #[test]
   fn problem_4() {
     assert_eq!(palindrome_product(100, 1_000, 100, 1_000), 906_609);
+  }
+
+  #[test]
+  fn problem_5() {
+    assert_eq!(smallest_multiple(20), 232_792_560);
   }
 }
