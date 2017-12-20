@@ -67,13 +67,12 @@ fn palindrome_product(i: u64, i_max: u64, j: u64, j_max: u64) -> u64 {
   return largest
 }
 
-/// Find the smallest multiple of all ints 1..i.
-#[allow(dead_code)]
-pub fn smallest_multiple(i: u64) -> u64 {
-  let mut f1 = primes::Set::of(2);
+/// Find the smallest multiple of all ints in the range arg.
+pub fn smallest_multiple(bases: &[u64]) -> u64 {
+  let mut f1 = primes::Set::new();
 
-  for d in 2..i {
-    f1.join(primes::Set::of(d));
+  for d in bases.iter() {
+    f1.join(primes::Set::of(*d));
   }
 
   f1.to_int()
@@ -105,6 +104,7 @@ mod tests {
 
   #[test]
   fn problem_5() {
-    assert_eq!(smallest_multiple(20), 232_792_560);
+    let bases: Vec<u64> = (2..20).collect();
+    assert_eq!(smallest_multiple(bases.as_slice()), 232_792_560);
   }
 }

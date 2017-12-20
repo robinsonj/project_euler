@@ -5,12 +5,13 @@ extern crate euler_lib;
 
 use euler_lib::problems::set_one::{smallest_multiple};
 
-fn compute(n: u64) -> u64 {
+fn compute(n: &[u64]) -> u64 {
   smallest_multiple(n)
 }
 
 fn solve() -> String {
-  compute(20).to_string()
+  let bases: Vec<u64> = (2..20).collect();
+  compute(bases.as_slice()).to_string()
 }
 
 problem!("232792560", solve);
@@ -19,6 +20,7 @@ problem!("232792560", solve);
 mod tests {
   #[test]
   fn p005_example() {
-    assert_eq!(2520, super::compute(10));
+    let bases: Vec<u64> = (2..10).collect();
+    assert_eq!(2520, super::compute(bases.as_slice()));
   }
 }
