@@ -3,27 +3,10 @@
 #[macro_use(problem)]
 extern crate euler_lib;
 
+use euler_lib::problems::set_one::{smallest_multiple};
+
 fn compute(n: u64) -> u64 {
-  let mut m = n;
-
-  loop {
-    let mut found: bool = true;
-
-    for d in (2..n).rev() {
-      if m % d != 0 {
-        found = false;
-        break;
-      }
-    }
-
-    if found {
-      break;
-    }
-
-    m += 1;
-  }
-
-  m
+  smallest_multiple(n)
 }
 
 fn solve() -> String {
