@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::collections::hash_map::Entry::{Occupied, Vacant};
 
 #[derive(Debug)]
 pub struct Factors {
@@ -13,6 +14,21 @@ impl Factors {
       num: num,
       factors: HashMap::new(),
       factorized: false
+    }
+  }
+
+  pub fn join(&mut self, j: Factors) {
+    for (i, c) in j.factors {
+      match self.factors.entry(i) {
+        Occupied(ref entry) if entry.get() >= &c => {
+        },
+        Occupied(mut entry) => {
+          *entry.get_mut() = c;
+        },
+        Vacant(entry) => {
+          entry.insert(c);
+        }
+      }
     }
   }
 
@@ -105,5 +121,27 @@ mod tests {
 
     assert_eq!(factors.to_int(), 24);
     assert_eq!(f_vec, vec![2, 2, 2, 3]);
+  }
+
+  #[test]
+  fn factors_struct_join() {
+    let mut f1 = super::Factors::new(12);
+    let mut f2 = super::Factors::new(13);
+    let mut f3 = super::Factors::new(14);
+
+    f2.factorize();
+    f3.factorize();
+    f1.join(f2);
+
+    let mut f1_vec = f1.to_vec();
+    f1_vec.sort();
+
+    assert_eq!(f1_vec, vec![2, 2, 3, 13]);
+
+    f1.join(f3);
+    f1_vec = f1.to_vec();
+    f1_vec.sort();
+
+    assert_eq!(f1_vec, vec![2, 2, 3, 7, 13]);
   }
 }
