@@ -1,6 +1,7 @@
 /// Provide solutions to Euler problems 1-25.
 
 use math::primes;
+use math::compute::{sum_sq, sq_sum};
 use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
@@ -64,7 +65,7 @@ fn palindrome_product(i: u64, i_max: u64, j: u64, j_max: u64) -> u64 {
     }
   }
 
-  return largest
+  largest
 }
 
 /// Find the smallest multiple of all ints in the range arg.
@@ -76,6 +77,10 @@ pub fn smallest_multiple(bases: &[u64]) -> u64 {
   }
 
   f1.to_int()
+}
+
+pub fn sum_square_difference(n: u64) -> u64 {
+  sq_sum(n) - sum_sq(n)
 }
 
 #[cfg(test)]
@@ -106,5 +111,10 @@ mod tests {
   fn problem_5() {
     let bases: Vec<u64> = (2..20).collect();
     assert_eq!(smallest_multiple(bases.as_slice()), 232_792_560);
+  }
+
+  #[test]
+  fn problem_6() {
+    assert_eq!(25_164_150, super::sum_square_difference(100));
   }
 }

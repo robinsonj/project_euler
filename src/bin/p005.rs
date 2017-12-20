@@ -1,4 +1,4 @@
-//! [Problem 5](https://projectuler.net/problem=5)
+//! [Problem 005](https://projectuler.net/problem=5)
 
 #[macro_use(problem)]
 extern crate euler_lib;
@@ -21,7 +21,7 @@ mod tests {
   #[test]
   fn p005_example() {
     let bases: Vec<u64> = (2..10).collect();
-    assert_eq!(2520, super::compute(bases.as_slice()));
+    assert_eq!(2_520, super::compute(bases.as_slice()));
   }
 
   #[test]
