@@ -1,4 +1,4 @@
-/// Provide solutions to Euler problems 1-25.
+//! Provide solutions to Project Euler problems 001-025.
 
 use math::primes;
 use math::compute::{sum_sq, sq_sum};
@@ -98,16 +98,36 @@ pub fn nth_prime(n: u64) -> u64 {
   candidate
 }
 
-/// Find the largest product in the series of lenth n.
+/// Find the largest product in the series `s` of lenth `n`.
 pub fn largest_product_in_series(n: u64, s: &'static str) -> u64 {
   s
+    // Get an iterator for each `char` in the string.
     .chars()
+
+    // Convert the str chars in to numeric types where possible.
+    // Non-numeric chars (anything not "0" - "9") or ignored.
     .filter_map(|c| c.to_digit(10))
+
+    // Convert all elements in the collection to u64s.
     .map(|n| n as u64)
+
+    // Collect the iteractor in to a vector of u64s.
+    // Uses the special 'turbofish' syntax (`::<>`).
     .collect::<Vec<_>>()
+
+    // Create an iterator over all contiguous windows in the slice.
     .windows(n as usize)
-    .map(|w| w.iter().fold(1u64, |p, &n| p * n))
+
+    // Transfor the iterator of windows in to a vector of the contiquous
+    // products.
+    //
+    // `1u64` is the initial value for the accumulator `acc`.
+    .map(|w| w.iter().fold(1u64, |acc, &next| acc * next))
+
+    // Find the maximum value in the vector.
     .max()
+
+    // Unwrap and return the max value.
     .unwrap()
 }
 
