@@ -98,9 +98,23 @@ pub fn nth_prime(n: u64) -> u64 {
   candidate
 }
 
+/// Find the largest product in the series of lenth n.
+pub fn largest_product_in_series(n: u64, s: &'static str) -> u64 {
+  s
+    .chars()
+    .filter_map(|c| c.to_digit(10))
+    .map(|n| n as u64)
+    .collect::<Vec<_>>()
+    .windows(n as usize)
+    .map(|w| w.iter().fold(1u64, |p, &n| p * n))
+    .max()
+    .unwrap()
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+  use problems::input::{P008};
 
   #[test]
   fn problem_1() {
@@ -136,5 +150,10 @@ mod tests {
   #[test]
   fn problem_7() {
     assert_eq!(104_743, super::nth_prime(10_001));
+  }
+
+  #[test]
+  fn problem_8() {
+    assert_eq!(23_514_624_000, super::largest_product_in_series(13, P008));
   }
 }
