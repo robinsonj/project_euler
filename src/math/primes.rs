@@ -90,12 +90,42 @@ pub fn is_prime(p: u64) -> bool {
   factors.to_vec() == vec![p]
 }
 
+pub fn is_prime2(n: u64) -> bool {
+  match n {
+    1               => false,
+    2 ... 3         => true,
+    x if x % 2 == 0 => false,
+    x if x < 9      => true,
+    x if x % 3 == 0 => false,
+    x               => {
+      let r: u64 = (x as f64).sqrt() as u64;
+      let mut f: u64 = 5;
+
+      while f <= r {
+        match x {
+          xx if xx % f == 0       => return false,
+          xx if xx % (f + 2) == 0 => return false,
+          _ => { f += 6 }
+        }
+      }
+
+      true
+    }
+  }
+}
+
 #[cfg(test)]
 mod tests {
   #[test]
   fn is_prime() {
     assert_eq!(super::is_prime(894119), true);
     assert_eq!(super::is_prime(894120), false);
+  }
+
+  #[test]
+  fn is_prime2() {
+    assert_eq!(super::is_prime2(894119), true);
+    assert_eq!(super::is_prime2(894120), false);
   }
 
   #[test]

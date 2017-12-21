@@ -83,6 +83,21 @@ pub fn sum_square_difference(n: u64) -> u64 {
   sq_sum(n) - sum_sq(n)
 }
 
+/// Find the nth prime number.
+pub fn nth_prime(n: u64) -> u64 {
+  let mut count: u64 = 1;
+  let mut candidate: u64 = 1;
+
+  while count < n {
+    candidate += 2;
+    if primes::is_prime2(candidate) {
+      count += 1;
+    }
+  }
+
+  candidate
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -116,5 +131,10 @@ mod tests {
   #[test]
   fn problem_6() {
     assert_eq!(25_164_150, super::sum_square_difference(100));
+  }
+
+  #[test]
+  fn problem_7() {
+    assert_eq!(104_743, super::nth_prime(10_001));
   }
 }
