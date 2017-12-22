@@ -113,7 +113,7 @@ pub fn largest_product_in_series(n: u64, s: &'static str) -> u64 {
 
     // Collect the iteractor in to a vector of u64s.
     // Uses the special 'turbofish' syntax (`::<>`).
-    .collect::<Vec<_>>()
+    .collect::<Vec<u64>>()
 
     // Create an iterator over all contiguous windows in the slice.
     .windows(n as usize)
