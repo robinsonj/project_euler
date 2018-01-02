@@ -1,7 +1,7 @@
 //! Provide solutions to Project Euler problems 001-025.
 
 use math::primes;
-use math::compute::{sum_sq, sq_sum};
+use math::compute::{sum_sq, sq_sum, gcd};
 use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
@@ -131,6 +131,47 @@ pub fn largest_product_in_series(n: u64, s: &'static str) -> u64 {
     .unwrap()
 }
 
+/// Find the pythagorean triplets for which `a + b + c = n` and
+/// `a^2 + b^2 = c^2`.
+pub fn pythagorean_triplets(n: u64) -> Vec<(u64, u64, u64)> {
+  let s2: u64 = n / 2;
+  let mlimit: u64 = ((s2 as f64).sqrt().ceil() as u64) - 1;
+  let mut k: u64;
+  let mut triplets: Vec<(u64, u64, u64)> = vec![];
+
+  for m in 2..mlimit {
+
+    if s2 % m == 0 {
+      let mut sm: u64 = s2 / m;
+
+      while sm % 2 == 0 {
+        sm = sm / 2
+      }
+
+      if m % 2 == 1 {
+        k = m + 2;
+      } else {
+        k = m + 1;
+      }
+
+      while k < 2 * m && k <= sm {
+        if sm % k == 0 && gcd(k, m) == 1 {
+          let d = s2 / (k * m);
+          let n = k - m;
+          let a = d * (m * m - n * n);
+          let b = 2 * d * m * n;
+          let c = d * (m * m + n * n);
+          triplets.push((a, b, c));
+        }
+
+        k += 2;
+      }
+    }
+  }
+
+  triplets
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -175,5 +216,10 @@ mod tests {
   #[test]
   fn problem_8() {
     assert_eq!(23_514_624_000, super::largest_product_in_series(13, P008));
+  }
+
+  #[test]
+  fn problem_9() {
+    assert_eq!(vec![(375, 200, 425)], super::pythagorean_triplets(1_000));
   }
 }
