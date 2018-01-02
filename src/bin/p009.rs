@@ -6,11 +6,7 @@ extern crate euler_lib;
 use euler_lib::problems::set_one::{pythagorean_triplets};
 
 fn compute(n: u64) -> u64 {
-  println!("CHECKING N: {:?}", n);
-  println!("{:?}", pythagorean_triplets(n));
-
   for (a, b, c) in pythagorean_triplets(n) {
-    println!("A: {:?}", a);
     return a * b * c
   }
 

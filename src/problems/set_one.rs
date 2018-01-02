@@ -1,5 +1,7 @@
 //! Provide solutions to Project Euler problems 001-025.
 
+use std::cmp;
+
 use math::primes;
 use math::compute::{sum_sq, sq_sum, gcd};
 use math::palindromes::{is_palindrome};
@@ -135,7 +137,7 @@ pub fn largest_product_in_series(n: u64, s: &'static str) -> u64 {
 /// `a^2 + b^2 = c^2`.
 pub fn pythagorean_triplets(n: u64) -> Vec<(u64, u64, u64)> {
   let s2: u64 = n / 2;
-  let mlimit: u64 = ((s2 as f64).sqrt().ceil() as u64) - 1;
+  let mlimit: u64 = cmp::max((s2 as f64).sqrt().ceil() as u64 - 1, 3);
   let mut k: u64;
   let mut triplets: Vec<(u64, u64, u64)> = vec![];
 
