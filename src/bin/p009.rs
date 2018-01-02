@@ -3,14 +3,11 @@
 #[macro_use(problem)]
 extern crate euler_lib;
 
+use euler_lib::math::compute::{tripprod};
 use euler_lib::problems::set_one::{pythagorean_triplets};
 
 fn compute(n: u64) -> u64 {
-  for (a, b, c) in pythagorean_triplets(n) {
-    return a * b * c
-  }
-
-  0
+  tripprod(pythagorean_triplets(n)[0])
 }
 
 fn solve() -> String {

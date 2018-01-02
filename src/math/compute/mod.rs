@@ -27,6 +27,11 @@ pub fn gcd(a: u64, b: u64) -> u64 {
   gcd(a, b - a)
 }
 
+/// Compute the product of an integer triplet.
+pub fn tripprod(t: (u64, u64, u64)) -> u64 {
+  t.0 * t.1 * t.2
+}
+
 #[cfg(test)]
 mod tests {
   #[test]
@@ -45,5 +50,12 @@ mod tests {
     assert_eq!(3,   super::gcd(6,   15));
     assert_eq!(1,   super::gcd(13,  20));
     assert_eq!(0,   super::gcd(0,   1));
+  }
+
+  #[test]
+  fn tripprod() {
+    assert_eq!(6,   super::tripprod((1, 2, 3)));
+    assert_eq!(100, super::tripprod((1, 2, 50)));
+    assert_eq!(144, super::tripprod((2, 6, 12)));
   }
 }

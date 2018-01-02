@@ -178,6 +178,7 @@ pub fn pythagorean_triplets(n: u64) -> Vec<(u64, u64, u64)> {
 mod tests {
   use super::*;
   use problems::input::{P008};
+  use math::compute::{tripprod};
 
   #[test]
   fn problem_1() {
@@ -222,6 +223,10 @@ mod tests {
 
   #[test]
   fn problem_9() {
-    assert_eq!(vec![(375, 200, 425)], super::pythagorean_triplets(1_000));
+    let triplet = super::pythagorean_triplets(1_000);
+
+    assert_eq!(1,                     triplet.len());
+    assert_eq!(vec![(375, 200, 425)], triplet);
+    assert_eq!(31_875_000,            tripprod(triplet[0]));
   }
 }
