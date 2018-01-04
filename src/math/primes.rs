@@ -14,20 +14,41 @@ impl Set {
   }
 
   pub fn of(f: u64) -> Set {
-    let mut set = Set {
-      factors: HashMap::new()
-    };
-
+    let mut set = Set::new();
     set.factorize(&mut f.clone());
 
     set
   }
 
+  /// Join two factorization sets.
+  ///
+  /// This mutates the calling set and adds the set 'j' factors to itself.
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use euler_lib::math::primes::Set;
+  ///
+  /// let mut a = Set::of(10);
+  /// let     b = Set::of(20);
+  ///
+  /// let mut a_vec = a.to_vec();
+  /// a_vec.sort();
+  ///
+  /// assert_eq!(vec![2, 5], a_vec);
+  ///
+  /// // Join b to a.
+  /// a.join(b);
+  ///
+  /// a_vec = a.to_vec();
+  /// a_vec.sort();
+  ///
+  /// assert_eq!(vec![2, 2, 5], a_vec);
+  /// ```
   pub fn join(&mut self, j: Set) {
     for (i, c) in j.factors {
       match self.factors.entry(i) {
-        Occupied(ref entry) if entry.get() >= &c => {
-        },
+        Occupied(ref entry) if entry.get() >= &c => {},
         Occupied(mut entry) => {
           *entry.get_mut() = c;
         },
