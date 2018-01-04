@@ -1,5 +1,5 @@
 pub fn is_palindrome(n: u64) -> bool {
-  return n == reverse(n)
+  n == reverse(n)
 }
 
 fn reverse(mut n: u64) -> u64 {
@@ -10,5 +10,25 @@ fn reverse(mut n: u64) -> u64 {
     n = n / 10;
   }
 
-  return u;
+  u
+}
+
+#[cfg(test)]
+mod tests {
+  #[test]
+  fn is_palindrome() {
+    assert_eq!(true,  super::is_palindrome(1));
+    assert_eq!(true,  super::is_palindrome(121));
+    assert_eq!(true,  super::is_palindrome(1000000001));
+
+    assert_eq!(false, super::is_palindrome(010));
+    assert_eq!(false, super::is_palindrome(100));
+    assert_eq!(false, super::is_palindrome(123456789));
+  }
+
+  #[test]
+  fn reverse() {
+    assert_eq!(1,         super::reverse(1));
+    assert_eq!(987654321, super::reverse(123456789));
+  }
 }
