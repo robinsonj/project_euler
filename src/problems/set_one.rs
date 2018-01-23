@@ -174,6 +174,10 @@ pub fn pythagorean_triplets(n: u64) -> Vec<(u64, u64, u64)> {
   triplets
 }
 
+pub fn sum_of_primes(n: u64) -> u64 {
+  primes::sieve::list(n).iter().sum()
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -228,5 +232,10 @@ mod tests {
     assert_eq!(1,                     triplet.len());
     assert_eq!(vec![(375, 200, 425)], triplet);
     assert_eq!(31_875_000,            tripprod(triplet[0]));
+  }
+
+  #[test]
+  fn problem_10() {
+    assert_eq!(142_913_828_922, super::sum_of_primes(2_000_000));
   }
 }
