@@ -3,7 +3,7 @@
 use std::cmp;
 
 use math::primes;
-use math::compute::{sum_sq, sq_sum, gcd};
+use math::compute::{factors, sum_sq, sq_sum, gcd, gauss_sum};
 use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
@@ -174,8 +174,22 @@ pub fn pythagorean_triplets(n: u64) -> Vec<(u64, u64, u64)> {
   triplets
 }
 
+/// Sum all prime numbers <= `n`.
 pub fn sum_of_primes(n: u64) -> u64 {
   primes::sieve::list(n).iter().sum()
+}
+
+/// Find the smallest trianguler number to have a number of divisors <= `n`.
+pub fn divis_triangular_number(n: u64) -> u64 {
+  let mut c: u64 = 1;
+
+  loop {
+    let sum: u64 = gauss_sum(c);
+
+    if factors(sum).len() >= n as usize { return sum }
+
+    c += 1;
+  }
 }
 
 #[cfg(test)]
@@ -237,5 +251,10 @@ mod tests {
   #[test]
   fn problem_10() {
     assert_eq!(142_913_828_922, super::sum_of_primes(2_000_000));
+  }
+
+  #[test]
+  fn problem_12() {
+    assert_eq!(76_576_500, super::divis_triangular_number(500));
   }
 }

@@ -32,6 +32,26 @@ pub fn tripprod(t: (u64, u64, u64)) -> u64 {
   t.0 * t.1 * t.2
 }
 
+/// Compute the sum of all whole numbers `0..n`.
+pub fn gauss_sum(n: u64) -> u64 {
+  (n * (n + 1)) / 2
+}
+
+/// Compute the list of all the factors of `n`.
+pub fn factors(n: u64) -> Vec<u64> {
+  let mut f: Vec<u64> = vec![];
+
+  for factor in 1..((n as f64).sqrt()).floor() as u64 + 1 {
+    if n % factor == 0 {
+      f.push(factor);
+      f.push(n / factor);
+    }
+  }
+
+  f.sort();
+  f
+}
+
 #[cfg(test)]
 mod tests {
   #[test]
@@ -57,5 +77,17 @@ mod tests {
     assert_eq!(6,   super::tripprod((1, 2, 3)));
     assert_eq!(100, super::tripprod((1, 2, 50)));
     assert_eq!(144, super::tripprod((2, 6, 12)));
+  }
+
+  #[test]
+  fn gauss_sum() {
+    assert_eq!(5050, super::gauss_sum(100));
+    assert_eq!(5151, super::gauss_sum(101));
+  }
+
+  #[test]
+  fn factors() {
+    assert_eq!(vec![1, 2, 3, 6], super::factors(6));
+    assert_eq!(vec![1, 2, 4, 7, 14, 28], super::factors(28));
   }
 }
