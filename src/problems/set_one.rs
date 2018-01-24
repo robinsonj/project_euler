@@ -3,7 +3,7 @@
 use std::cmp;
 
 use math::primes;
-use math::compute::{factors, sum_sq, sq_sum, gcd, gauss_sum};
+use math::compute::{sum_sq, sq_sum, gcd, gauss_sum};
 use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
@@ -186,7 +186,7 @@ pub fn divis_triangular_number(n: u64) -> u64 {
   loop {
     let sum: u64 = gauss_sum(c);
 
-    if factors(sum).len() >= n as usize { return sum }
+    if primes::Set::of(sum).num_divisors() >= n { return sum }
 
     c += 1;
   }

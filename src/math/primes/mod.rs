@@ -22,6 +22,38 @@ impl Set {
     set
   }
 
+  /// Compute the number of divisors the factored set would produce.
+  ///
+  /// An integers number of divisors can be calculated with the formula:
+  ///   The integer `N` can be expressed with the formula:
+  ///      `N = p_1^a1 * p_2^a2 * p_3^a3 * ...`
+  ///   where p_n is a distinct prime number and a_n is its exponent.
+  ///
+  ///   The number of divisors of integer N can be calculated with:
+  ///     `D = (a1 + 1) * (a2 + 1) * (a3 + 1) * ...`
+  ///   where a_n are the exponents of the distinct prime factors of N.
+  ///
+  /// # Examples
+  ///
+  /// ```
+  /// use euler_lib::math::primes::Set;
+  ///
+  /// let d1 = Set::of(28).num_divisors();
+  /// let d2 = Set::of(100).num_divisors();
+  ///
+  /// assert_eq!(6, d1);
+  /// assert_eq!(9, d2);
+  /// ```
+  pub fn num_divisors(self) -> u64 {
+    let mut num_divisors: u64 = 1;
+
+    for (_, c) in self.factors {
+      num_divisors *= (c + 1) as u64
+    }
+
+    num_divisors
+  }
+
   /// Join two factorization sets.
   ///
   /// This mutates the calling set and adds the set 'j' factors to itself.
@@ -174,6 +206,11 @@ mod tests {
 
     assert_eq!(factors.to_int(), 24);
     assert_eq!(f_vec, vec![2, 2, 2, 3]);
+  }
+
+  #[test]
+  fn factors_num_divisors() {
+    assert_eq!(6, super::Set::of(28).num_divisors());
   }
 
   #[test]
