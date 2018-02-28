@@ -179,16 +179,24 @@ pub fn sum_of_primes(n: u64) -> u64 {
   primes::sieve::list(n).iter().sum()
 }
 
-/// Find the smallest trianguler number to have a number of divisors <= `n`.
-pub fn divis_triangular_number(n: u64) -> u64 {
-  let mut c: u64 = 1;
+/// Find the smallest trianguler number to have a number of divisors <= `min`.
+///
+/// # Examples
+///
+/// ```
+/// use euler_lib::problems::set_one::divis_triangular_number;
+///
+/// assert_eq!(28, divis_triangular_number(5));
+/// ```
+pub fn divis_triangular_number(min: u64) -> u64 {
+  let mut n: u64 = 1;
 
   loop {
-    let sum: u64 = gauss_sum(c);
+    let t: u64 = gauss_sum(n);
 
-    if primes::Set::of(sum).num_divisors() >= n { return sum }
+    if primes::Set::of(t).num_divisors() >= min { return t }
 
-    c += 1;
+    n += 1;
   }
 }
 
