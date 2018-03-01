@@ -204,11 +204,14 @@ pub fn divis_triangular_number(min: u64) -> u64 {
 /// starting number < n.
 pub fn longest_collatz_seq(max: u64) -> u64 {
   let mut ret: u64 = 0;
+  let mut prev: u64 = 0;
 
   for i in 1..max {
-    if collatz(i).len() as u64 > ret {
-      println!("{} collatz len: {}", i, collatz(i).len());
+    let length = collatz(i).len() as u64;
+
+    if length > prev {
       ret = i;
+      prev = length;
     }
   }
 
@@ -283,6 +286,6 @@ mod tests {
 
   #[test]
   fn problem_14() {
-    assert_eq!(1, super::longest_collatz_seq(1_000_000));
+    assert_eq!(837_799, super::longest_collatz_seq(1_000_000));
   }
 }

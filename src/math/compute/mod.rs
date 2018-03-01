@@ -112,6 +112,10 @@ mod tests {
 
   #[test]
   fn collatz() {
-    assert_eq!(super::collatz(13), vec![13, 40, 20, 10, 5, 16, 8, 4, 2, 1]);
+    let collatz_9 = super::collatz(9);
+    let collatz_13 = super::collatz(13);
+
+    assert_eq!(collatz_9, vec![9, 28, 14, 7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]);
+    assert_eq!(collatz_13, vec![13, 40, 20, 10, 5, 16, 8, 4, 2, 1]);
   }
 }
