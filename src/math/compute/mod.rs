@@ -52,6 +52,25 @@ pub fn factors(n: u64) -> Vec<u64> {
   f
 }
 
+/// Compute the Collatz sequence of given integer `n`.
+pub fn collatz(mut n: u64) -> Vec<u64> {
+  let mut c: Vec<u64> = vec![];
+
+  while n > 1 {
+    c.push(n);
+
+    if n % 2 == 0 {
+      n = n / 2;
+    } else {
+      n = n * 3 + 1;
+    }
+  }
+
+  c.push(n);
+
+  c
+}
+
 #[cfg(test)]
 mod tests {
   #[test]
@@ -89,5 +108,10 @@ mod tests {
   fn factors() {
     assert_eq!(vec![1, 2, 3, 6], super::factors(6));
     assert_eq!(vec![1, 2, 4, 7, 14, 28], super::factors(28));
+  }
+
+  #[test]
+  fn collatz() {
+    assert_eq!(super::collatz(13), vec![13, 40, 20, 10, 5, 16, 8, 4, 2, 1]);
   }
 }

@@ -3,7 +3,7 @@
 use std::cmp;
 
 use math::primes;
-use math::compute::{sum_sq, sq_sum, gcd, gauss_sum};
+use math::compute::{collatz, sum_sq, sq_sum, gcd, gauss_sum};
 use math::palindromes::{is_palindrome};
 
 #[allow(dead_code)]
@@ -200,6 +200,21 @@ pub fn divis_triangular_number(min: u64) -> u64 {
   }
 }
 
+/// Determine the count of numbers in the longest Collatz sequence with a
+/// starting number < n.
+pub fn longest_collatz_seq(max: u64) -> u64 {
+  let mut ret: u64 = 0;
+
+  for i in 1..max {
+    if collatz(i).len() as u64 > ret {
+      println!("{} collatz len: {}", i, collatz(i).len());
+      ret = i;
+    }
+  }
+
+  ret
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -264,5 +279,10 @@ mod tests {
   #[test]
   fn problem_12() {
     assert_eq!(76_576_500, super::divis_triangular_number(500));
+  }
+
+  #[test]
+  fn problem_14() {
+    assert_eq!(1, super::longest_collatz_seq(1_000_000));
   }
 }
